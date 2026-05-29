@@ -1,0 +1,674 @@
+{
+    "model"      : "CYT-VX8 F24-6 M256-0 R5-2",
+    "layout"     : "L1",
+
+    "instr_size" : 24,
+    "nb_reg"     : 6,
+    "page_size"  : 256,
+    "nb_pages"   : 0,
+    "opcode_size": 6,
+
+    "registers"  : {
+        "R1"   : 0,
+        "R2"   : 1,
+        "R3"   : 2,
+        "R4"   : 3,
+        "R5"   : 4,
+        "R6"   : 5,
+        "R7"   : 6,
+        "RCMP" : 7
+    },
+    
+    "specific" : {
+        "CNST8" : [0, 255],
+        "ADDR8" : [0, 255]
+    },
+
+    "mnemonics"  : {
+        "NOP" : {
+            "comment"  : "No OPeration. Consumes one clock period.",
+            "opcode"   : "0x0",
+            "shift"    : 16,
+            "arguments": [] ,
+            "or_mask"  : "0x0",
+            "regexp"   : "000000",
+            "cycles"   : 1
+        },
+        
+        
+        
+        "CMP_LT" : {
+            "comment"  : "Lesser Than : RCMP = (#Rin1 < #Rin2)",
+            "opcode"   : "0x1",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [8, 3]
+                }
+            ],
+            "or_mask": "0x7",
+            "regexp" : "01[0-6]{1}[0-6]{1}07",
+            "cycles" : 1
+        },
+        "CMP_LE" : {
+            "comment"  : "Lesser or Equal : RCMP = (#Rin1 <= #Rin2)",
+            "opcode"   : "0x2",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [8, 3]
+                }
+            ],
+            "or_mask": "0x7",
+            "regexp" : "02[0-6]{1}[0-6]{1}07",
+            "cycles" : 1
+        },
+        "CMP_EQ" : {
+            "comment"  : "EQual : RCMP = (#Rin1 == #Rin2)",
+            "opcode"   : "0x3",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [8, 3]
+                }
+            ],
+            "or_mask": "0x7",
+            "regexp" : "03[0-6]{1}[0-6]{1}07",
+            "cycles" : 1
+        },
+        "CMP_GE" : {
+            "comment"  : "Greater or Equal : RCMP = (#Rin1 >= #Rin2)",
+            "opcode"   : "0x4",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [8, 3]
+                }
+            ],
+            "or_mask": "0x7",
+            "regexp" : "04[0-6]{1}[0-6]{1}07",
+            "cycles" : 1
+        },
+        "CMP_GT" : {
+            "comment"  : "Greater Than : RCMP = (#Rin1 > #Rin2)",
+            "opcode"   : "0x5",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [8, 3]
+                }
+            ],
+            "or_mask": "0x7",
+            "regexp" : "05[0-6]{1}[0-6]{1}07",
+            "cycles" : 1
+        },
+        "CMP_NE" : {
+            "comment"  : "Not Equal : RCMP = (#Rin1 != #Rin2)",
+            "opcode"   : "0x6",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [8, 3]
+                }
+            ],
+            "or_mask": "0x7",
+            "regexp" : "06[0-6]{1}[0-6]{1}07",
+            "cycles" : 1
+        },
+        
+        
+        
+        "NOT" : {
+            "comment"  : "binary Not : #Rout = ~#Rin1",
+            "opcode"   : "0x8",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "08[0-6]{1}00[0-6]{1}",
+            "cycles" : 1
+        },
+        "LSL" : {
+            "comment"  : "Logical Shift Left : #Rout = (#Rin1 << 1)",
+            "opcode"   : "0x9",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "09[0-6]{1}00[0-6]{1}",
+            "cycles" : 1
+        },
+        "LSR" : {
+            "comment"  : "Logical Shift Right : #Rout = (#Rin1 >> 1)",
+            "opcode"   : "0xA",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "0A[0-6]{1}00[0-6]{1}",
+            "cycles" : 1
+        },
+        "ASR" : {
+            "comment"  : "Arithmetic Shift Right : #Rout = (#Rin1 >> 1)",
+            "opcode"   : "0xB",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "0B[0-6]{1}00[0-6]{1}",
+            "cycles" : 1
+        },
+        "ROL" : {
+            "comment"  : "ROtate Left : #Rout = (#Rin1 << 1)|((#Rin1 & 0x80)>>7)",
+            "opcode"   : "0xC",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "0C[0-6]{1}00[0-6]{1}",
+            "cycles" : 1
+        },
+        "ROR" : {
+            "comment"  : "ROtate Right : #Rout = ((#Rin1 >> 1)&0x7F)|((#Rin1 & 0x1)<<7)",
+            "opcode"   : "0xD",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "0D[0-6]{1}00[0-6]{1}",
+            "cycles" : 1
+        },
+
+
+
+        "AND" : {
+            "comment"  : "bitwise AND : #Rout = #Rin1 & #Rin2",
+            "opcode"   : "0x10",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [8, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "10[0-6]{1}[0-6]{1}0[0-6]{1}",
+            "cycles" : 1
+        },
+        "OR" : {
+            "comment"  : "bitwise OR : #Rout = #Rin1 | #Rin2",
+            "opcode"   : "0x11",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [8, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "11[0-6]{1}[0-6]{1}0[0-6]{1}",
+            "cycles" : 1
+        },
+        "XOR" : {
+            "comment"  : "bitwise XOR : #Rout = #Rin1 ^ #Rin2",
+            "opcode"   : "0x12",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [8, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "12[0-6]{1}[0-6]{1}0[0-6]{1}",
+            "cycles" : 1
+        },
+        "NAND" : {
+            "comment"  : "bitwise NAND : #Rout = ~(#Rin1 & #Rin2)",
+            "opcode"   : "0x13",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [8, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "13[0-6]{1}[0-6]{1}0[0-6]{1}",
+            "cycles" : 1
+        },
+        "NOR" : {
+            "comment"  : "bitwise NOR : #Rout = ~(#Rin1 | #Rin2)",
+            "opcode"   : "0x14",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [8, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "14[0-6]{1}[0-6]{1}0[0-6]{1}",
+            "cycles" : 1
+        },
+        "XNOR" : {
+            "comment"  : "bitwise XNOR : #Rout = ~(#Rin1 ^ #Rin2)",
+            "opcode"   : "0x15",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [8, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "15[0-6]{1}[0-6]{1}0[0-6]{1}",
+            "cycles" : 1
+        },
+
+      
+        "ADD" : {
+            "comment"  : "arithmetic ADD : #Rout = #Rin1 + #Rin2",
+            "opcode"   : "0x18",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [8, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "18[0-6]{1}[0-6]{1}0[0-6]{1}",
+            "cycles" : 1
+        },
+        "SUB" : {
+            "comment"  : "arithmetic SUB (cc2) : #Rout = #Rin1 + (-#Rin2)",
+            "opcode"   : "0x19",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [8, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "19[0-6]{1}[0-6]{1}0[0-6]{1}",
+            "cycles" : 1
+        },
+        "MIN" : {
+            "comment"  : "MINimum : #Rout = min(#Rin1, #Rin2)",
+            "opcode"   : "0x1A",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [8, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "1A[0-6]{1}[0-6]{1}0[0-6]{1}",
+            "cycles" : 1
+        },
+        "MAX" : {
+            "comment"  : "MAXimum : #Rout = max(#Rin1, #Rin2)",
+            "opcode"   : "0x1B",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [8, 3]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "1B[0-6]{1}[0-6]{1}0[0-6]{1}",
+            "cycles" : 1
+        },
+        
+        "INC" : {
+            "comment"  : "INCrease by 1 : #Rin1 = #Rin1 + 1",
+            "opcode"   : "0x1C",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3],
+                    "duplicate": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "1C[0-6]{1}00[0-6]{1}",
+            "cycles" : 1
+        },
+        "DEC" : {
+            "comment"  : "DECrease by 1 : #Rin1 = #Rin1 - 1",
+            "opcode"   : "0x1D",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3],
+                    "duplicate": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "1D[0-6]{1}00[0-6]{1}",
+            "cycles" : 1
+        },
+        "NEG" : {
+            "comment"  : "NEGate value : #Rin1 = -#Rin1",
+            "opcode"   : "0x1E",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3],
+                    "duplicate": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "1E[0-6]{1}00[0-6]{1}",
+            "cycles" : 1
+        },
+        "ABS" : {
+            "comment"  : "ABSolute value : #Rin1 = #Rin1<0 ? -#Rin1 : #Rin1",
+            "opcode"   : "0x1F",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3],
+                    "duplicate": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "1F[0-6]{1}00[0-6]{1}",
+            "cycles" : 1
+        },
+
+
+
+
+
+        "LOAD" : {
+            "comment"  : "Memory ReaD : #Rout = *ADDR8",
+            "opcode"   : "0x21",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["ADDR8"], 
+                    "position": [4, 8]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "210[0-9A-Z]{2}[0-6]{1}",
+            "cycles" : 1
+        },
+        "STOR" : {
+            "comment"  : "Memory WRite : *ADDR8 = #Rin1",
+            "opcode"   : "0x22",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [12, 3]
+                },
+                {
+                    "values"  : ["ADDR8"], 
+                    "position": [4, 8]
+                }                
+            ],
+            "or_mask": "0x0",
+            "regexp" : "22[0-6]{1}[0-9A-Z]{2}0",
+            "cycles" : 1
+        },
+
+
+        "PAGE" : {
+            "comment"  : "PAGE selection",
+            "opcode"   : "0x23",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["CNST8"], 
+                    "position": [8, 8]
+                },
+                {
+                    "values"  : ["CNST8"], 
+                    "position": [0, 8]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "24[0-9A-Z]{2}[0-9A-Z]{2}",
+            "cycles" : 1
+        },
+
+
+        "CNST" : {
+            "comment"  : "set CoNSTant value",
+            "opcode"   : "0x24",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["CNST8"], 
+                    "position": [4, 8]
+                },
+                {
+                    "values"  : ["R1", "R2", "R3", "R4", "R5", "R6", "R7"], 
+                    "position": [0, 3]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "240[0-9A-F]{2}[0-7]{1}",
+            "cycles" : 1
+        },
+
+
+        "JMP" : {
+            "comment"  : "Jump to ADDR8 w/o any condition",
+            "opcode"   : "0x25",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["ADDR8"], 
+                    "position": [4, 8]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "250[0-9A-Z]{2}0",
+            "cycles" : 1
+        },
+        "JNE" : {
+            "comment"  : "Jump to ADDR8 if RCMP Not Equal to zero",
+            "opcode"   : "0x26",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["ADDR8"], 
+                    "position": [4, 8]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "260[0-9A-Z]{2}0",
+            "cycles" : 1
+        },
+        "JEQ" : {
+            "comment"  : "Jump to ADDR8 if RCMP EQual to zero",
+            "opcode"   : "0x27",
+            "shift"    : 16,
+            "arguments": [
+                {
+                    "values"  : ["ADDR8"], 
+                    "position": [4, 8]
+                }
+            ],
+            "or_mask": "0x0",
+            "regexp" : "270[0-9A-Z]{2}0",
+            "cycles" : 1
+        }        
+    }
+}
+
+
+
