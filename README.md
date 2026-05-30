@@ -150,6 +150,10 @@ The DECODE unit stores the fetched instruction in a 24-bit register and decodes 
 
 ![CMP_NE](Data/Instructions/Comparison/CMP_NE.png)
 
+##### Others :
+
+![NOP](Data/Instructions/Others/NOP.png)
+
 #### Example of an Assembly file : 
 
 ![ASSEMBLYFILE](Data/Instructions/AssemblyFile.png)
