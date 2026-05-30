@@ -173,18 +173,22 @@ def compile_CYT_VX(filepath, cfg):
                     # write line of comment
                     test=line.replace('\n', '').replace('#', '').strip()
                     text += f"{BLUE}#{test}{NONE}"
-                    
-            bytecodet += f"{codet}\n"
-            bytecode += f"{code}\n"
+
+            line = f.readline()
+            lineno += 1
+
+            lineBreak = "\n"
+            if(line == ''):
+                lineBreak = ""
+
+            bytecodet += f"{codet}" + lineBreak
+            bytecode += f"{code}" + lineBreak
             textcode += f"{BLUE}{lineno:4d} | {NONE}" 
             if code != '':
                 textcode += f"{codet}{BLUE} | "
             if text != '':
                 textcode += f"{text}"
-            textcode += '\n'
-                    
-            line = f.readline()
-            lineno += 1    
+            textcode += lineBreak
 
         if errors > 0:
             s = 's' if errors > 1 else ''
@@ -198,7 +202,7 @@ def compile_CYT_VX(filepath, cfg):
                  
 if __name__ == "__main__":
 
-    cfg_name = "CYT-VX8_F24-6_M256-0_R6-2_L1.json"
+    cfg_name = "AR8.json"
 
     # Load default CYT-VX config
     content = ""
@@ -212,7 +216,7 @@ if __name__ == "__main__":
         exit(1)
 
     byte_code = compile_CYT_VX(sys.argv[1], cfg)
-    byte_code = "v2.0 raw\n" + byte_code
+    byte_code = "" + byte_code
     while "\n\n" in byte_code:
         byte_code = byte_code.replace('\n\n', '\n')
         
