@@ -39,7 +39,7 @@ cd AR8-Processor
 python3 compile_asm_ar8.py Files/input Files/output
 ```
 
-6. **The output file contains the binary instructions** 
+6. **The output file contains the binary instructions (in hexadecimal format)** 
 
 7. **The `AR8.circ` file contains the full processor circuit** 
 
@@ -62,9 +62,11 @@ logisim-evolution
 
 ![LOADIMAGE2](Data/Tutorial/LoadImage2.png)
 
+![IMAGEFORMAT](Data/Tutorial/ImageFormat.png)
+
 12. **Start the simulation**
 
-![LAUNCHSIMULATION](Data/Tutorial/LaunchSimulation.png)
+![STARTSIMULATION](Data/Tutorial/StartSimulation.png)
 
 ## Pipeline
 
