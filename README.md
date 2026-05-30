@@ -159,7 +159,7 @@ The operation is selected using the slctOP signal, defined as follows :
 ##### Note :
 - The shift and rotation operations use only operand A.
 - The result of comparison operations is stored as an 8-bit value, where the least significant bit represents the result.
-- - Example: 1001 0101 EQUAL 1001 0101 → 0000 0001
+    - Example : 1001 0101 EQUAL 1001 0101 → 0000 0001
 
 ## License
 
