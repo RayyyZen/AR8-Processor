@@ -64,7 +64,7 @@ logisim-evolution
 
 ![IMAGEFORMAT](Data/Tutorial/ImageFormat.png)
 
-12. **Start the simulation**
+12. **Start the simulation and enable clock ticks**
 
 ![STARTSIMULATION](Data/Tutorial/StartSimulation.png)
 
@@ -96,11 +96,11 @@ The FETCH unit stores the next instruction to be executed, retrieved from RAM, i
 
 The DECODE unit stores the fetched instruction in a 24-bit register and decodes it in order to configure the control signals of each component of the circuit :
 
-- RFWE (1 bit): Register File Write Enable (determines whether the result is written to a register)
-- slctC (3 bits): Destination register in the Register File (where the result is stored)
-- slctB (3 bits): Source register B (second operand)
-- slctA (3 bits): Source register A (first operand)
-- slctOP (6 bits): ALU operation selector
+- RFWE (1 bit) : Register File Write Enable (determines whether the result is written to a register)
+- slctC (3 bits) : Destination register in the Register File (where the result is stored)
+- slctB (3 bits) : Source register B (second operand)
+- slctA (3 bits) : Source register A (first operand)
+- slctOP (6 bits) : ALU operation selector
 
 #### Instruction format :
 
