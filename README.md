@@ -164,7 +164,7 @@ The INSTRUCTION DECODE unit stores the fetched instruction in a 24-bit register 
 
 ![LOAD](Data/Instructions/MemoryAccess/LOAD.png)
 
-![STORE](Data/Instructions/MemoryAccess/STORE.png)
+![STOR](Data/Instructions/MemoryAccess/STOR.png)
 
 ##### Others :
 
