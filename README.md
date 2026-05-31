@@ -70,7 +70,7 @@ logisim-evolution
 
 ## Pipeline
 
-The AR8 Processor follows a specific pipeline with a structured handling of each component (PC, RAM, FETCH, INSTRUCTION DECODE, DECODER, REGISTER FILE, MULTIPLEXERS, ALU) following a FETCH → DECODE → EXECUTE cycle.
+The AR8 Processor follows a specific pipeline with a structured handling of each component (PC, RAM, FETCH, INSTRUCTION DECODE, DECODER, REGISTER FILE, MULTIPLEXERS, ALU) following a Fetch → Decode → Execute cycle.
 
 ### PC
 
