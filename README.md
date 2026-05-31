@@ -4,7 +4,7 @@
 
 ## Introduction
 
-**AR8 Processor** is an 8-bit micro-processor built with the Logisim Evolution application, implementing the different components a real processor has in order to execute 24-bit binary instructions coming from RAM. The processor circuit combines a `PC` (Program Counter) that chooses the address of the next instruction from RAM, a `FETCH` unit that stores the instruction that will be executed, a `DECODE` unit that decodes the 24-bit instruction and changes the selection bits of the circuit to execute it, a `REGISTER FILE` that contains 7 registers of 8 bits (R1 to R7) and 1 of 1 bit for the comparison values (RCMP) that contain the different stored values, and finally an `ALU` that executes logical, arithmetic, comparison, offset, and rotation operations.
+**AR8 Processor** is an 8-bit micro-processor built with the Logisim Evolution application, implementing the different components a real processor has in order to execute 24-bit binary instructions coming from RAM. The processor circuit combines a `PC` (Program Counter) that chooses the address of the next instruction from RAM, a `FETCH` unit that stores the instruction that will be executed, an `INSTRUCTION DECODE` unit that decodes the 24-bit instruction and changes the selection bits of the circuit to execute it, a `REGISTER FILE` that contains 7 registers of 8 bits (R1 to R7) and 1 of 1 bit for the comparison values (RCMP) that contain the different stored values, and finally an `ALU` that executes logical, arithmetic, comparison, offset, and rotation operations.
 
 ## Prerequisites
 
@@ -70,7 +70,7 @@ logisim-evolution
 
 ## Pipeline
 
-The AR8 Processor follows a specific pipeline with a structured handling of each component (PC, RAM, FETCH, DECODE, REGISTER FILE, ALU) following a FETCH → DECODE → EXECUTE cycle.
+The AR8 Processor follows a specific pipeline with a structured handling of each component (PC, RAM, FETCH, INSTRUCTION DECODE, DECODER, REGISTER FILE, MULTIPLEXERS, ALU) following a FETCH → DECODE → EXECUTE cycle.
 
 ### PC
 
@@ -90,11 +90,11 @@ This is a RAM that stores the 24-bit instructions executed by the processor. It 
 
 The FETCH unit stores the next instruction to be executed, retrieved from RAM, in a 24-bit register.
 
-### DECODE
+### INSTRUCTION DECODE
 
 ![DECODE](Data/Pipeline/DECODE.png)
 
-The DECODE unit stores the fetched instruction in a 24-bit register and decodes it in order to configure the control signals of each component of the circuit :
+The INSTRUCTION DECODE unit stores the fetched instruction in a 24-bit register and decodes it in order to configure the control signals of each component of the circuit :
 
 - RFWE (1 bit) : Register File Write Enable (determines whether the result is written to a register)
 - slctC (3 bits) : Destination register in the Register File (where the result is stored)
@@ -160,12 +160,25 @@ The DECODE unit stores the fetched instruction in a 24-bit register and decodes 
 
 ![ASSEMBLYFILE](Data/Instructions/AssemblyFile.png)
 
+### DECODER
+
+![DECODER](Data/Pipeline/DECODER.png)
+
+This unit selects one of the eight registers where the result will be stored by enabling its write signal while disabling all others. It is also controlled by a global write enable signal, allowing writes to be disabled when no result should be stored.
+
 ### REGISTER FILE
 
 ![REGISTERFILE](Data/Pipeline/REGISTERFILE.png)
 
-It contains seven 8-bit registers (R1 to R7) used to store variables, and one 1-bit register (RCMP) used to store comparison results.
-It is controlled by a decoder that enables writing to one of the registers. The register file outputs are connected to two multiplexers that select two operands, which are then processed by the ALU.
+The register file contains seven 8-bit general-purpose registers (R1 to R7) used to store variables, as well as one 1-bit register (RCMP) used to store comparison results.
+
+It is controlled by a decoder that enables writing to a single selected register. The outputs of the register file are connected to two multiplexers, which select two operands that are then processed by the ALU.
+
+### MULTIPLEXERS
+
+![MULTIPLEXER](Data/Pipeline/MULTIPLEXER.png)
+
+Two multiplexers are used to select operands from the register file. Based on their selection signals, they choose two registers whose values are forwarded as inputs to the ALU.
 
 ### ALU
 
