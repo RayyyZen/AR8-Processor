@@ -152,7 +152,23 @@ The INSTRUCTION DECODE unit stores the fetched instruction in a 24-bit register 
 
 ![CMP_NE](Data/Instructions/Comparison/CMP_NE.png)
 
+##### Jump :
+
+![JMP](Data/Instructions/Jump/JMP.png)
+
+![JEQ](Data/Instructions/Jump/JEQ.png)
+
+![JNE](Data/Instructions/Jump/JNE.png)
+
+##### Memory access :
+
+![LOAD](Data/Instructions/MemoryAccess/LOAD.png)
+
+![STORE](Data/Instructions/MemoryAccess/STORE.png)
+
 ##### Others :
+
+![CNST](Data/Instructions/Others/CNST.png)
 
 ![NOP](Data/Instructions/Others/NOP.png)
 
