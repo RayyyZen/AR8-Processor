@@ -14,27 +14,32 @@
 ## Installation
 
 1. **Install Logisim-evolution using the following command :** 
+
 ```sh
 sudo snap install logisim-evolution
 ```
 
 2. **Install Python 3 using the following commands :** 
+
 ```sh
 sudo apt update
 sudo apt install python3
 ```
 
 3. **Clone the repository :** 
+
 ```sh
 git clone https://github.com/RayyyZen/AR8-Processor.git
 ```
 
 4. **Move into the project folder :** 
+
 ```sh
 cd AR8-Processor
 ```
 
 5. **Write an assembly program the Files/ directory, then run the following command to compile it :** 
+
 ```sh
 python3 compile_asm_ar8.py Files/input Files/output
 ```
@@ -44,6 +49,7 @@ python3 compile_asm_ar8.py Files/input Files/output
 7. **The `AR8.circ` file contains the full processor circuit** 
 
 8. **Launch Logisim-evolution using the following command :**
+
 ```sh
 logisim-evolution
 ```
@@ -110,9 +116,25 @@ The INSTRUCTION DECODE unit stores the fetched instruction in a 24-bit register 
 
 ##### Arithmetic :
 
-![ADD](Data/Instructions/Arithmetic/ADD.png)
+###### 2 Registers :
 
-![SUB](Data/Instructions/Arithmetic/SUB.png)
+![ADD](Data/Instructions/Arithmetic/2_Registers/ADD.png)
+
+![SUB](Data/Instructions/Arithmetic/2_Registers/SUB.png)
+
+![MIN](Data/Instructions/Arithmetic/2_Registers/MIN.png)
+
+![MAX](Data/Instructions/Arithmetic/2_Registers/MAX.png)
+
+###### 1 Register :
+
+![INC](Data/Instructions/Arithmetic/1_Register/INC.png)
+
+![DEC](Data/Instructions/Arithmetic/1_Register/DEC.png)
+
+![NEG](Data/Instructions/Arithmetic/1_Register/NEG.png)
+
+![ABS](Data/Instructions/Arithmetic/1_Register/ABS.png)
 
 ##### Logical :
 
@@ -124,29 +146,37 @@ The INSTRUCTION DECODE unit stores the fetched instruction in a 24-bit register 
 
 ![XOR](Data/Instructions/Logical/2_Registers/XOR.png)
 
+![NAND](Data/Instructions/Logical/2_Registers/NAND.png)
+
+![NOR](Data/Instructions/Logical/2_Registers/NOR.png)
+
+![XNOR](Data/Instructions/Logical/2_Registers/XNOR.png)
+
 ###### 1 Register :
 
 ![NOT](Data/Instructions/Logical/1_Register/NOT.png)
 
-##### Offset :
+![LSL](Data/Instructions/Logical/1_Register/LSL.png)
 
-![LSL](Data/Instructions/Offset/LSL.png)
+![LSR](Data/Instructions/Logical/1_Register/LSR.png)
 
-![LSR](Data/Instructions/Offset/LSR.png)
+![ASR](Data/Instructions/Logical/1_Register/ASR.png)
 
-![ASR](Data/Instructions/Offset/ASR.png)
+![ROL](Data/Instructions/Logical/1_Register/ROL.png)
 
-##### Rotation :
+![ROR](Data/Instructions/Logical/1_Register/ROR.png)
 
-![ROL](Data/Instructions/Rotation/ROL.png)
-
-![ROR](Data/Instructions/Rotation/ROR.png)
+![ASL](Data/Instructions/Logical/1_Register/ASL.png)
 
 ##### Comparison :
 
 ![CMP_LT](Data/Instructions/Comparison/CMP_LT.png)
 
+![CMP_LE](Data/Instructions/Comparison/CMP_LE.png)
+
 ![CMP_EQ](Data/Instructions/Comparison/CMP_EQ.png)
+
+![CMP_GE](Data/Instructions/Comparison/CMP_GE.png)
 
 ![CMP_GT](Data/Instructions/Comparison/CMP_GT.png)
 
@@ -165,6 +195,8 @@ The INSTRUCTION DECODE unit stores the fetched instruction in a 24-bit register 
 ![LOAD](Data/Instructions/MemoryAccess/LOAD.png)
 
 ![STOR](Data/Instructions/MemoryAccess/STOR.png)
+
+![PAGE](Data/Instructions/MemoryAccess/PAGE.png)
 
 ##### Others :
 
@@ -203,31 +235,51 @@ Two multiplexers are used to select operands from the register file. Based on th
 The ALU is a combinational circuit that performs all arithmetic, logical, comparison, shift, and rotation operations required by the processor. It outputs the result of the selected operation.
 The operation is selected using the slctOP signal, defined as follows :
 
-#### Arithmetic block : 
+#### Arithmetic (2 registers) block : 
+
 - ADD : 000000
 - SUB : 000001
+- MIN : 000010
+- MAX : 000011
 
-#### Logical block : 
-- AND : 001000
-- OR : 001001
-- XOR : 001010
+#### Arithmetic (1 register) block : 
 
-#### Offset and Rotation block : 
-- NOT : 010000
-- LSL : 010001
-- LSR : 010010
-- ASR : 010011
-- ROL : 010100
-- ROR : 010101
+- INC : 001100
+- DEC : 001101
+- NEG : 001110
+- ABS : 001111
+
+#### Logical (2 registers) block : 
+
+- AND  : 010000 or 011000
+- OR   : 010001 or 011001
+- XOR  : 010010 or 011010
+- NAND : 010011 or 011011
+- NOR  : 010100 or 011100
+- XNOR : 010101 or 011101
+
+#### Logical (1 register) block : 
+
+- NOT : 100000 or 101000
+- LSL : 100001 or 101001
+- LSR : 100010 or 101010
+- ASR : 100011 or 101011
+- ROL : 100100 or 101100
+- ROR : 100101 or 101101
+- ASL : 100110 or 101110
 
 #### Comparison block : 
-- INF : 011000
-- EQUAL : 011001
-- SUP : 011010
-- DIFF : 011011
+
+- CMP_LT : 110001 or 111001
+- CMP_LE : 110010 or 111010
+- CMP_EQ : 110011 or 111011
+- CMP_GE : 110100 or 111100
+- CMP_GT : 110101 or 111101
+- CMP_NE : 110110 or 111110
 
 ##### Note :
-- The shift and rotation operations use only operand A.
+
+- The arithmetic (1 register) and logic (1 register) operations use only operand A.
 - The result of comparison operations is stored as an 8-bit value, where the least significant bit represents the result.
     - Example : 1001 0101 EQUAL 1001 0101 → 0000 0001
 
