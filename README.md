@@ -4,7 +4,7 @@
 
 ## Introduction
 
-**AR8 Processor** is an 8-bit micro-processor built with the Logisim Evolution application, implementing the different components a real processor has in order to execute 24-bit binary instructions coming from RAM. The processor circuit combines a `PC` (Program Counter) that chooses the address of the next instruction from RAM, a `FETCH` unit that stores the instruction that will be executed, an `INSTRUCTION DECODE` unit that decodes the 24-bit instruction and changes the selection bits of the circuit to execute it, a `REGISTER FILE` that contains 7 registers of 8 bits (R1 to R7) and 1 of 1 bit for the comparison values (RCMP) that contain the different stored values, and finally an `ALU` that executes logical, arithmetic, comparison, offset, and rotation operations.
+**AR8 Processor** is an 8-bit micro-processor built with the Logisim Evolution application, implementing the different components a real processor has in order to execute 24-bit binary instructions coming from RAM. The processor circuit combines a `PC` (Program Counter) that chooses the address of the next instruction from the ROM (code), a `FETCH` unit that stores the instruction that will be executed, an `INSTRUCTION DECODE` unit that decodes the 24-bit instruction and changes the selection bits of the circuit to execute it, a `Page` unit that extends the addressing range of the RAM (data) through memory paging, allowing data memory to be accessed through a 24-bit address space, a `REGISTER FILE` that contains 7 registers of 8 bits (R1 to R7) and 1 of 1 bit for the comparison values (RCMP) that contain the different stored values, and finally an `ALU` that executes logical, arithmetic, comparison, offset, and rotation operations.
 
 ## Prerequisites
 
@@ -76,7 +76,7 @@ logisim-evolution
 
 ## Pipeline
 
-The AR8 Processor follows a specific pipeline with a structured handling of each component (PC, RAM, FETCH, INSTRUCTION DECODE, DECODER, REGISTER FILE, MULTIPLEXERS, ALU) following a Fetch → Decode → Execute cycle.
+The AR8 Processor follows a specific pipeline with a structured handling of each component (PC, ROM (code), FETCH, INSTRUCTION DECODE, PAGE, RAM (data), DECODER, REGISTER FILE, MULTIPLEXERS, ALU) following a Fetch → Decode → Execute cycle.
 
 ### PC
 
@@ -86,9 +86,9 @@ The PC (Program Counter) is an 8-bit register initialized to 0. It is incremente
 
 ### RAM (code)
 
-![RAM](Data/Pipeline/RAM.png)
+![ROM](Data/Pipeline/ROMcode.png)
 
-This is a RAM that stores the 24-bit instructions executed by the processor. It is separate from the data RAM (Harvard architecture) in order to simplify instruction fetching and execution flow.
+This is a ROM that stores the 24-bit instructions executed by the processor. It is separate from the data RAM (Harvard architecture) in order to simplify instruction fetching and execution flow.
 
 ### FETCH
 
@@ -100,13 +100,7 @@ The FETCH unit stores the next instruction to be executed, retrieved from RAM, i
 
 ![DECODE](Data/Pipeline/DECODE.png)
 
-The INSTRUCTION DECODE unit stores the fetched instruction in a 24-bit register and decodes it in order to configure the control signals of each component of the circuit :
-
-- RFWE (1 bit) : Register File Write Enable (determines whether the result is written to a register)
-- slctC (3 bits) : Destination register in the Register File (where the result is stored)
-- slctB (3 bits) : Source register B (second operand)
-- slctA (3 bits) : Source register A (first operand)
-- slctOP (6 bits) : ALU operation selector
+The INSTRUCTION DECODE unit stores the fetched instruction in a 24-bit register and decodes it in order to configure the control signals of each component of the circuit.
 
 #### Instruction format :
 
