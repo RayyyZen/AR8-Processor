@@ -86,9 +86,9 @@ The PC (Program Counter) is an 8-bit register initialized to 0. It is incremente
 
 ### RAM (code)
 
-![ROM](Data/Pipeline/ROMcode.png)
+![ROMcode](Data/Pipeline/ROMcode.png)
 
-This is a ROM that stores the 24-bit instructions executed by the processor. It is separate from the data RAM (Harvard architecture) in order to simplify instruction fetching and execution flow.
+An instruction memory (ROM) that stores 24-bit instructions executed by the processor, addressed using 8-bit addresses. It is separate from the data RAM (Harvard architecture) in order to simplify instruction fetching and execution flow.
 
 ### FETCH
 
@@ -201,6 +201,18 @@ The INSTRUCTION DECODE unit stores the fetched instruction in a 24-bit register 
 #### Example of an Assembly file : 
 
 ![ASSEMBLYFILE](Data/Instructions/AssemblyFile.png)
+
+### PAGE
+
+![PAGE](Data/Pipeline/PAGE.png)
+
+The PAGE unit handles data-memory paging, allowing the RAM (data) to be addressed using 24-bit addresses.
+
+### RAM (data)
+
+![RAMdata](Data/Pipeline/RAMdata.png)
+
+A data RAM used for storing and retrieving 8-bit data, addressed using 24-bit addresses (16 bits for the page address and 8 bits for the offset). It is separate from the data RAM (Harvard architecture) in order to simplify instruction fetching and execution flow.
 
 ### DECODER
 
